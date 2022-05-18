@@ -5,11 +5,6 @@ VisualStudioVersion = 17.1.32328.378
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ActiveFilterSimulator", "ActiveFilterSimulator\ActiveFilterSimulator.csproj", "{22EF6325-FB5A-4A0A-A534-70778E1DC9C8}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{575DFC32-8B1A-471D-97DC-316D50E153CB}"
-	ProjectSection(SolutionItems) = preProject
-		..\RCL_Class\RCL_Class\Part.cs = ..\RCL_Class\RCL_Class\Part.cs
-	EndProjectSection
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

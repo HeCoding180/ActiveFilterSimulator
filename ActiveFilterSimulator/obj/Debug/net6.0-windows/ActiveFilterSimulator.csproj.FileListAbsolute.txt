@@ -16,3 +16,14 @@ C:\Users\plasm\source\repos\ActiveFilterSimulator\ActiveFilterSimulator\obj\Debu
 C:\Users\plasm\source\repos\ActiveFilterSimulator\ActiveFilterSimulator\obj\Debug\net6.0-windows\ActiveFilterSimulator.genruntimeconfig.cache
 C:\Users\plasm\source\repos\ActiveFilterSimulator\ActiveFilterSimulator\obj\Debug\net6.0-windows\ref\ActiveFilterSimulator.dll
 C:\Users\plasm\source\repos\ActiveFilterSimulator\ActiveFilterSimulator\obj\Debug\net6.0-windows\ActiveFilterSimulator.Properties.Resources.resources
+C:\Users\timow\source\repos\ActiveFilterSimulator\ActiveFilterSimulator\obj\Debug\net6.0-windows\ActiveFilterSimulator.csproj.AssemblyReference.cache
+C:\Users\timow\source\repos\ActiveFilterSimulator\ActiveFilterSimulator\obj\Debug\net6.0-windows\ActiveFilterSimulator.Form1.resources
+C:\Users\timow\source\repos\ActiveFilterSimulator\ActiveFilterSimulator\obj\Debug\net6.0-windows\ActiveFilterSimulator.Properties.Resources.resources
+C:\Users\timow\source\repos\ActiveFilterSimulator\ActiveFilterSimulator\obj\Debug\net6.0-windows\ActiveFilterSimulator.csproj.GenerateResource.cache
+C:\Users\timow\source\repos\ActiveFilterSimulator\ActiveFilterSimulator\obj\Debug\net6.0-windows\ActiveFilterSimulator.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\timow\source\repos\ActiveFilterSimulator\ActiveFilterSimulator\obj\Debug\net6.0-windows\ActiveFilterSimulator.AssemblyInfoInputs.cache
+C:\Users\timow\source\repos\ActiveFilterSimulator\ActiveFilterSimulator\obj\Debug\net6.0-windows\ActiveFilterSimulator.AssemblyInfo.cs
+C:\Users\timow\source\repos\ActiveFilterSimulator\ActiveFilterSimulator\obj\Debug\net6.0-windows\ActiveFilterSimulator.csproj.CoreCompileInputs.cache
+C:\Users\timow\source\repos\ActiveFilterSimulator\ActiveFilterSimulator\obj\Debug\net6.0-windows\ActiveFilterSimulator.dll
+C:\Users\timow\source\repos\ActiveFilterSimulator\ActiveFilterSimulator\obj\Debug\net6.0-windows\refint\ActiveFilterSimulator.dll
+C:\Users\timow\source\repos\ActiveFilterSimulator\ActiveFilterSimulator\obj\Debug\net6.0-windows\ActiveFilterSimulator.pdb
