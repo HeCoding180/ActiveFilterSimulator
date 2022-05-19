@@ -27,6 +27,34 @@ namespace ActiveFilterSimulator
         }
     }
 
+    public class EngineNetPart
+    {
+        public complexNumber zValue;
+
+        public string netA { set; get; }
+        public string netB { set; get; }
+
+        public EngineNetPart(ComplexNetPart zNetPart)
+        {
+            netA = zNetPart.netA;
+            netB = zNetPart.netB;
+            zValue = zNetPart.zPart.ComplexResistiveProperty;
+        }
+        public EngineNetPart(EngineNetPart zNetPart)
+        {
+            netA = zNetPart.netA;
+            netB = zNetPart.netB;
+            zValue = zNetPart.zValue;
+        }
+        public EngineNetPart(complexNumber value, string NetA, string NetB)
+        {
+            netA = NetA;
+            netB = NetB;
+
+            zValue = value;
+        }
+    }
+
     public class ComplexPartTreeEngine
     {
         ComplexNetPart[] netPartList;
@@ -90,25 +118,25 @@ namespace ActiveFilterSimulator
         public complexNumber getComplexImpedance(double frequency)
         {
             complexNumber result = new complexNumber();
-            ComplexNetPart[] IterationArray = new ComplexNetPart[netPartList.Length];
+            EngineNetPart[] IterationArray = new EngineNetPart[netPartList.Length];
 
             for(int i = 0; i < netPartList.Length; i++)
             {
                 netPartList[i].zPart.frequency = frequency;
-                IterationArray.Append(netPartList[i]);
+                IterationArray.Append(new EngineNetPart(netPartList[i]));
             }
 
             //Tree Iterations
             while (IterationArray.Length != 0)
-            for (int indexA = 0; indexA < netPartList.Length; indexA++)
+            for (int indexA = 0; indexA < (netPartList.Length - 1); indexA++)
             {
                 for (int indexB = indexA + 1; indexB < netPartList.Length; indexB++)
                 {
                     if ((IterationArray[indexA].netA == IterationArray[indexB].netA) && (IterationArray[indexA].netB == IterationArray[indexB].netB))
                     {
-                        //Parallel Occurrence Detected
-                        complexNumber replacementImpedance
-                        IterationArray[indexA].zPart.ComplexResistiveProperty
+                            //Parallel Occurrence Detected
+                            IterationArray.Append(new EngineNetPart(complexNumber.reciprocal(complexNumber.reciprocal(IterationArray[indexA].zValue) + complexNumber.reciprocal(IterationArray[indexB].zValue)), IterationArray[indexA].netA, IterationArray[indexA].netB));
+
                     }
                 }
             }
