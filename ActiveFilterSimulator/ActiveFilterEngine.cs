@@ -28,26 +28,27 @@ namespace ActiveFilterSimulator
 
     public class ActiveFilterEngine
     {
-        filterType FilterType;
+        ComplexPartTreeEngine ZaTreeEngine;
+        ComplexPartTreeEngine ZbTreeEngine;
 
-        public ActiveFilterEngine(filterType fType)
+        public ActiveFilterEngine()
         {
-            FilterType = fType;
+            ZaTreeEngine = new ComplexPartTreeEngine();
+            ZbTreeEngine = new ComplexPartTreeEngine();
+        }
+        public ActiveFilterEngine(ComplexPartTreeEngine zaTreeEngine, ComplexPartTreeEngine zbTreeEngine)
+        {
+            ZaTreeEngine = zaTreeEngine;
+            ZbTreeEngine = zbTreeEngine;
         }
 
         public double getGainAt(double frequency)
         {
-            complexNumber Za = new complexNumber();
-            complexNumber Zb = new complexNumber();
-
-            return Za.z / Zb.z;
+            return 1 + ZaTreeEngine.getComplexImpedance(frequency).z / ZbTreeEngine.getComplexImpedance(frequency).z;
         }
         public double getPhaseAt(double frequency)
         {
-            complexNumber Za = new complexNumber();
-            complexNumber Zb = new complexNumber();
-
-            return Zb.theta - Za.theta;
+            return ZbTreeEngine.getComplexImpedance(frequency).theta - ZaTreeEngine.getComplexImpedance(frequency).theta;
         }
     }
 
@@ -59,52 +60,89 @@ namespace ActiveFilterSimulator
 
         public FilterIterator(int start, int stop, double increment)
         {
-            if (start < stop)
-                throw new ArgumentException("start must be higher than stop");
+            if (start > stop)
+                throw new ArgumentException("stop must be higher than start");
             if ((10.0f % increment) != 0)
                 throw new ArgumentException("invalid increment value");
+
+            fStart = start;
+            fStop = stop;
+            fIncrement = increment;
         }
 
-        public graphPoint[] getGainPlot(ActiveFilterEngine filterEngine)
+        public List<graphPoint> getImpedancePlot(ComplexPartTreeEngine partTreeEngine)
         {
-            int arrayPoints = (int)(10.0f / fIncrement * Math.Log10(fStop / fStart));
-            graphPoint[] GainPlot = new graphPoint[arrayPoints];
+            List<graphPoint> ImpedancePlot = new List<graphPoint>();
 
-            int index = 0;
             for (int fDecade = fStart; fDecade <= fStop; fDecade *= 10)
             {
                 for (double fDecadeOffset = 1; fDecadeOffset <= (10 - fIncrement); fDecadeOffset += fIncrement)
                 {
-                    GainPlot[index].x = (int)(fDecade * fDecadeOffset);
-                    GainPlot[index].y = filterEngine.getGainAt(fDecade * fDecadeOffset);
-                    index++;
+                    graphPoint point = new graphPoint();
+                    point.x = (int)(fDecade * fDecadeOffset);
+                    point.y = partTreeEngine.getComplexImpedance(fDecade * fDecadeOffset).z;
+                    ImpedancePlot.Add(point);
+                }
+            }
+
+            return ImpedancePlot;
+        }
+        public List<graphPoint> getImpedancePhasePlot(ComplexPartTreeEngine partTreeEngine)
+        {
+            List<graphPoint> PhasePlot = new List<graphPoint>();
+
+            for (int fDecade = fStart; fDecade <= fStop; fDecade *= 10)
+            {
+                for (double fDecadeOffset = 1; fDecadeOffset <= (10 - fIncrement); fDecadeOffset += fIncrement)
+                {
+                    graphPoint point = new graphPoint();
+                    point.x = (int)(fDecade * fDecadeOffset);
+                    point.y = partTreeEngine.getComplexImpedance(fDecade * fDecadeOffset).theta * 180 / Math.PI;
+                    PhasePlot.Add(point);
+                }
+            }
+
+            return PhasePlot;
+        }
+
+        public List<graphPoint> getGainPlot(ActiveFilterEngine filterEngine)
+        {
+            List<graphPoint> GainPlot = new List<graphPoint>();
+
+            for (int fDecade = fStart; fDecade <= fStop; fDecade *= 10)
+            {
+                for (double fDecadeOffset = 1; fDecadeOffset <= (10 - fIncrement); fDecadeOffset += fIncrement)
+                {
+                    graphPoint point = new graphPoint();
+                    point.x = (int)(fDecade * fDecadeOffset);
+                    point.y = filterEngine.getGainAt(fDecade * fDecadeOffset);
+                    GainPlot.Add(point);
                 }
             }
 
             return GainPlot;
         }
 
-        public graphPoint[] getPhasePlot(ActiveFilterEngine filterEngine)
+        public List<graphPoint> getPhasePlot(ActiveFilterEngine filterEngine)
         {
             return getPhasePlot(filterEngine, phaseUnit.DEG);
         }
-        public graphPoint[] getPhasePlot(ActiveFilterEngine filterEngine, phaseUnit unit)
+        public List<graphPoint> getPhasePlot(ActiveFilterEngine filterEngine, phaseUnit unit)
         {
-            int arrayPoints = (int)(10.0f / fIncrement * Math.Log10(fStop / fStart));
-            graphPoint[] PhasePlot = new graphPoint[arrayPoints];
+            List<graphPoint> PhasePlot = new List<graphPoint>();
 
             //outputMultiplier is used for setting the unit of the phase shift 
             double outputMultiplier = 1.0f;
             if (unit == phaseUnit.DEG) outputMultiplier = 180 / Math.PI;
 
-            int index = 0;
             for (int fDecade = fStart; fDecade <= fStop; fDecade *= 10)
             {
                 for (double fDecadeOffset = 1; fDecadeOffset <= (10 - fIncrement); fDecadeOffset += fIncrement)
                 {
-                    PhasePlot[index].x = (int)(fDecade * fDecadeOffset);
-                    PhasePlot[index].y = filterEngine.getPhaseAt(fDecade * fDecadeOffset) * outputMultiplier;
-                    index++;
+                    graphPoint point = new graphPoint();
+                    point.x = (int)(fDecade * fDecadeOffset);
+                    point.y = filterEngine.getPhaseAt(fDecade * fDecadeOffset) * outputMultiplier;
+                    PhasePlot.Add(point);
                 }
             }
 

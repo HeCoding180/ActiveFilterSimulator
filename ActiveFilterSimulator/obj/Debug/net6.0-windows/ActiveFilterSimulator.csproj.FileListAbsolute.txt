@@ -27,3 +27,10 @@ C:\Users\timow\source\repos\ActiveFilterSimulator\ActiveFilterSimulator\obj\Debu
 C:\Users\timow\source\repos\ActiveFilterSimulator\ActiveFilterSimulator\obj\Debug\net6.0-windows\ActiveFilterSimulator.dll
 C:\Users\timow\source\repos\ActiveFilterSimulator\ActiveFilterSimulator\obj\Debug\net6.0-windows\refint\ActiveFilterSimulator.dll
 C:\Users\timow\source\repos\ActiveFilterSimulator\ActiveFilterSimulator\obj\Debug\net6.0-windows\ActiveFilterSimulator.pdb
+C:\Users\timow\source\repos\ActiveFilterSimulator\ActiveFilterSimulator\bin\Debug\net6.0-windows\ActiveFilterSimulator.exe
+C:\Users\timow\source\repos\ActiveFilterSimulator\ActiveFilterSimulator\bin\Debug\net6.0-windows\ActiveFilterSimulator.deps.json
+C:\Users\timow\source\repos\ActiveFilterSimulator\ActiveFilterSimulator\bin\Debug\net6.0-windows\ActiveFilterSimulator.runtimeconfig.json
+C:\Users\timow\source\repos\ActiveFilterSimulator\ActiveFilterSimulator\bin\Debug\net6.0-windows\ActiveFilterSimulator.dll
+C:\Users\timow\source\repos\ActiveFilterSimulator\ActiveFilterSimulator\bin\Debug\net6.0-windows\ActiveFilterSimulator.pdb
+C:\Users\timow\source\repos\ActiveFilterSimulator\ActiveFilterSimulator\obj\Debug\net6.0-windows\ActiveFilterSimulator.genruntimeconfig.cache
+C:\Users\timow\source\repos\ActiveFilterSimulator\ActiveFilterSimulator\obj\Debug\net6.0-windows\ref\ActiveFilterSimulator.dll

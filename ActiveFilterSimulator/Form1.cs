@@ -1,3 +1,5 @@
+using Part;
+
 namespace ActiveFilterSimulator
 {
     public partial class Form1 : Form
@@ -30,6 +32,24 @@ namespace ActiveFilterSimulator
 
             //Main pannel and property pannel objects' BackColors
             lProperties.BackColor = BACKCOLOR_MEDIUM_DIM;
+
+            //Test Output
+            FilterIterator ImpedanceIterator = new FilterIterator(1, 1000000, 1);
+            ComplexPartTreeEngine partTreeEngine = new ComplexPartTreeEngine();
+            partTreeEngine.AddPartToNet(new ComplexPart(RealPart.resistance, 10), "R1", "NetA", "NetB");
+            partTreeEngine.AddPartToNet(new ComplexPart(RealPart.inductiveReactiance, 0.01), "L1", "NetB", "NetC");
+            partTreeEngine.AddPartToNet(new ComplexPart(RealPart.capacitiveReactiance, 0.0000001f), "C1", "NetA", "NetC");
+
+            List<graphPoint> ImpedancePlot = ImpedanceIterator.getImpedancePlot(partTreeEngine);
+            List<graphPoint> PhasePlot = ImpedanceIterator.getImpedancePhasePlot(partTreeEngine);
+
+            string csvString = "";
+            for (int i = 0; i < PhasePlot.Count; i++)
+            {
+                csvString += ImpedancePlot[i].x.ToString() + ',' + ImpedancePlot[i].y.ToString() + ',' + PhasePlot[i].y.ToString() + Environment.NewLine;
+            }
+
+            File.WriteAllText(@"C:\Users\timow\Desktop\TestGraph.csv", csvString);
         }
 
         //Makes the window movable, even tho that it has no titlebar, was copied from GitHub (https://stackoverflow.com/a/28437841)

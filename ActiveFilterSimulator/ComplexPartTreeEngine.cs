@@ -50,44 +50,44 @@ namespace ActiveFilterSimulator
         {
             netA = NetA;
             netB = NetB;
-
             zValue = value;
         }
     }
 
     public class ComplexPartTreeEngine
     {
-        ComplexNetPart[] netPartList;
+        List<ComplexNetPart> netPartList;
 
         public ComplexPartTreeEngine()
         {
-
+            netPartList = new List<ComplexNetPart>();
         }
 
         public void AddPartToNet(ComplexPart zPart, string PartName, string NetAName, string NetBName)
         {
-            netPartList.Append(new ComplexNetPart(zPart, PartName, NetAName, NetBName));
+            netPartList.Add(new ComplexNetPart(zPart, PartName, NetAName, NetBName));
         }
         public void AddPartToNet(ComplexNetPart zNetPart)
         {
-            netPartList.Append(zNetPart);
+            netPartList.Add(zNetPart);
         }
 
         public int indexOf(string PartName)
         {
-            for (int i = 0; i < netPartList.Length; i++)
+            for (int i = 0; i < netPartList.Count; i++)
             {
                 if (netPartList[i].Name == PartName)
                 {
                     return i;
                 }
             }
+            //Unable to find Part with the name Specified
             return -1;
         }
 
         public void setPartValue(string PartName, double PartValue)
         {
-            for (int i = 0; i < netPartList.Length; i++)
+            for (int i = 0; i < netPartList.Count; i++)
             {
                 if (netPartList[i].Name == PartName)
                 {
@@ -102,7 +102,7 @@ namespace ActiveFilterSimulator
 
         public void renamePart(string PartNameOld, string PartNameNew)
         {
-            for (int i = 0; i < netPartList.Length; i++)
+            for (int i = 0; i < netPartList.Count; i++)
             {
                 if (netPartList[i].Name == PartNameOld)
                 {
@@ -117,31 +117,84 @@ namespace ActiveFilterSimulator
 
         public complexNumber getComplexImpedance(double frequency)
         {
-            complexNumber result = new complexNumber();
-            EngineNetPart[] IterationArray = new EngineNetPart[netPartList.Length];
+            List<EngineNetPart> IterationList = new List<EngineNetPart>();
 
-            for(int i = 0; i < netPartList.Length; i++)
+            for(int i = 0; i < netPartList.Count; i++)
             {
                 netPartList[i].zPart.frequency = frequency;
-                IterationArray.Append(new EngineNetPart(netPartList[i]));
+                IterationList.Add(new EngineNetPart(netPartList[i]));
             }
 
             //Tree Iterations
-            while (IterationArray.Length != 0)
-            for (int indexA = 0; indexA < (netPartList.Length - 1); indexA++)
+            while (IterationList.Count != 1)
             {
-                for (int indexB = indexA + 1; indexB < netPartList.Length; indexB++)
+                bool MergeOccurred = false;
+                //Check for parallel occurrences
+                for (int indexA = 0; indexA < (IterationList.Count - 1); indexA++)
                 {
-                    if ((IterationArray[indexA].netA == IterationArray[indexB].netA) && (IterationArray[indexA].netB == IterationArray[indexB].netB))
+                    for (int indexB = indexA + 1; indexB < IterationList.Count; indexB++)
                     {
-                            //Parallel Occurrence Detected
-                            IterationArray.Append(new EngineNetPart(complexNumber.reciprocal(complexNumber.reciprocal(IterationArray[indexA].zValue) + complexNumber.reciprocal(IterationArray[indexB].zValue)), IterationArray[indexA].netA, IterationArray[indexA].netB));
-
+                        if ((IterationList[indexA].netA == IterationList[indexB].netA) && (IterationList[indexA].netB == IterationList[indexB].netB))
+                        {
+                            //Parallel occurrence detected
+                            complexNumber replacementNumber = complexNumber.reciprocal(complexNumber.reciprocal(IterationList[indexA].zValue) + complexNumber.reciprocal(IterationList[indexB].zValue));
+                            mergeParts(ref IterationList, indexA, indexB, new EngineNetPart(replacementNumber, IterationList[indexA].netA, IterationList[indexA].netB));
+                            MergeOccurred = true;
+                            break;
+                        }
                     }
+                    if (MergeOccurred) break;
+                }
+                if (MergeOccurred) continue;
+
+                for (int indexA = 0; indexA < (IterationList.Count - 1); indexA++)
+                {
+                    for (int indexB = indexA + 1; indexB < IterationList.Count; indexB++)
+                    {
+                        if (IterationList[indexA].netB == IterationList[indexB].netA)
+                        {
+                            //Series type A->B occurrence detected
+                            complexNumber replacementNumber = IterationList[indexA].zValue + IterationList[indexB].zValue;
+                            mergeParts(ref IterationList, indexA, indexB, new EngineNetPart(replacementNumber, IterationList[indexA].netA, IterationList[indexB].netB));
+                            MergeOccurred = true;
+                            break;
+                        }
+                        else if (IterationList[indexB].netB == IterationList[indexA].netA)
+                        {
+                            //Series type B->A occurrence detected
+                            complexNumber replacementNumber = IterationList[indexA].zValue + IterationList[indexB].zValue;
+                            mergeParts(ref IterationList, indexA, indexB, new EngineNetPart(replacementNumber, IterationList[indexB].netA, IterationList[indexA].netB));
+                            MergeOccurred = true;
+                            break;
+                        }
+                    }
+                    if (MergeOccurred) break;
+                }
+                if (MergeOccurred) continue;
+
+                if (IterationList.Count != 1)
+                {
+                    //Invalid Formation
+                    throw new Exception("Invalid Part Formation");
                 }
             }
 
-            return result;
+            return IterationList[0].zValue;
+        }
+
+        private void mergeParts(ref List<EngineNetPart> IterationList, int IndexA, int IndexB, EngineNetPart replacementPart)
+        {
+            if (IndexB > IndexA)
+            {
+                IterationList.RemoveAt(IndexB);
+                IterationList.RemoveAt(IndexA);
+            }
+            else
+            {
+                IterationList.RemoveAt(IndexA);
+                IterationList.RemoveAt(IndexB);
+            }
+            IterationList.Add(replacementPart);
         }
     }
 }
