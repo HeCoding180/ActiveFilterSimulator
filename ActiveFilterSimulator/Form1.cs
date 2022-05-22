@@ -2,6 +2,12 @@ using Part;
 
 namespace ActiveFilterSimulator
 {
+    public enum PropertySelect
+    {
+        AmpProperties,
+        PartProperties
+    }
+
     public partial class Form1 : Form
     {
         readonly Color BACKCOLOR_DEFAULT = Color.FromArgb(87, 93, 107);
@@ -9,6 +15,8 @@ namespace ActiveFilterSimulator
         readonly Color BACKCOLOR_MEDIUM_DIM = Color.FromArgb(66, 70, 79);
         readonly Color BACKCOLOR_DARK = Color.FromArgb(39, 42, 56);
         readonly Color FORECOLOR_DEFAULT = Color.FromArgb(36, 101, 255);
+
+        Pen netPen = new Pen(Color.Black, 2);
 
         public Form1()
         {
@@ -27,13 +35,20 @@ namespace ActiveFilterSimulator
             //Main pannel and property pannel objects' ForeColors
             lProperties.ForeColor = FORECOLOR_DEFAULT;
 
-            lNameProperty.ForeColor = FORECOLOR_DEFAULT;
-            lValue.ForeColor = FORECOLOR_DEFAULT;
-
             //Main pannel and property pannel objects' BackColors
             lProperties.BackColor = BACKCOLOR_MEDIUM_DIM;
 
-            //Test Output
+            //Property UserControl Colors
+            partPropertyControl.SetColors(FORECOLOR_DEFAULT, BACKCOLOR_MEDIUM);
+            ampPropertyControl.SetColors(FORECOLOR_DEFAULT, BACKCOLOR_MEDIUM);
+
+            //Button Colors
+            bSaveConfig.ForeColor = FORECOLOR_DEFAULT;
+            bSaveConfig.BackColor = BACKCOLOR_DARK;
+            bOpenGraphView.ForeColor = FORECOLOR_DEFAULT;
+            bOpenGraphView.BackColor = BACKCOLOR_DARK;
+
+            /*//Test Output
             FilterIterator ImpedanceIterator = new FilterIterator(1, 1000000, 1);
             ComplexPartTreeEngine partTreeEngine = new ComplexPartTreeEngine();
             partTreeEngine.AddPartToNet(new ComplexPart(RealPart.resistance, 10), "R1", "NetA", "NetB");
@@ -49,7 +64,7 @@ namespace ActiveFilterSimulator
                 csvString += ImpedancePlot[i].x.ToString() + ',' + ImpedancePlot[i].y.ToString() + ',' + PhasePlot[i].y.ToString() + Environment.NewLine;
             }
 
-            File.WriteAllText(@"C:\Users\timow\Desktop\TestGraph.csv", csvString);
+            File.WriteAllText(@"C:\Users\timow\Desktop\TestGraph.csv", csvString);*/
         }
 
         //Makes the window movable, even tho that it has no titlebar, was copied from GitHub (https://stackoverflow.com/a/28437841)
@@ -64,6 +79,18 @@ namespace ActiveFilterSimulator
                     return;
             }
             base.WndProc(ref m);
+        }
+
+        public void SelectPropertyType(PropertySelect type)
+        {
+            if (type == PropertySelect.PartProperties)
+            {
+                partPropertyControl.BringToFront();
+            }
+            else
+            {
+                ampPropertyControl.BringToFront();
+            }
         }
 
         private void bClose_Click(object sender, EventArgs e)
@@ -86,6 +113,21 @@ namespace ActiveFilterSimulator
                 this.WindowState = FormWindowState.Maximized;
                 bMaximize.BackgroundImage = Properties.Resources.MinimizeIcon;
             }
+        }
+
+        private void bPartConfig_Click(object sender, EventArgs e)
+        {
+            SelectPropertyType(PropertySelect.PartProperties);
+        }
+
+        private void bAmpConfig_Click(object sender, EventArgs e)
+        {
+            SelectPropertyType(PropertySelect.AmpProperties);
+        }
+
+        private void bSaveConfig_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

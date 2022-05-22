@@ -30,12 +30,10 @@
         {
             this.MainPannel = new System.Windows.Forms.Panel();
             this.MainPannelSplitContainer = new System.Windows.Forms.SplitContainer();
-            this.ValueScientifficBox = new System.Windows.Forms.NumericUpDown();
-            this.lValueScientiffic = new System.Windows.Forms.Label();
-            this.ValueBox = new System.Windows.Forms.NumericUpDown();
-            this.lValue = new System.Windows.Forms.Label();
-            this.NameProperty = new System.Windows.Forms.TextBox();
-            this.lNameProperty = new System.Windows.Forms.Label();
+            this.bOpenGraphView = new System.Windows.Forms.Button();
+            this.bSaveConfig = new System.Windows.Forms.Button();
+            this.partPropertyControl = new ActiveFilterSimulator.PartPropertiesUC();
+            this.ampPropertyControl = new ActiveFilterSimulator.AmpPropertiesUC();
             this.lProperties = new System.Windows.Forms.Label();
             this.lTitle = new System.Windows.Forms.Label();
             this.bClose = new System.Windows.Forms.Button();
@@ -43,10 +41,9 @@
             this.bMaximize = new System.Windows.Forms.Button();
             this.MainPannel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.MainPannelSplitContainer)).BeginInit();
+            this.MainPannelSplitContainer.Panel1.SuspendLayout();
             this.MainPannelSplitContainer.Panel2.SuspendLayout();
             this.MainPannelSplitContainer.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.ValueScientifficBox)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.ValueBox)).BeginInit();
             this.SuspendLayout();
             // 
             // MainPannel
@@ -66,17 +63,18 @@
             this.MainPannelSplitContainer.Dock = System.Windows.Forms.DockStyle.Fill;
             this.MainPannelSplitContainer.Location = new System.Drawing.Point(0, 0);
             this.MainPannelSplitContainer.Name = "MainPannelSplitContainer";
+            // 
+            // MainPannelSplitContainer.Panel1
+            // 
+            this.MainPannelSplitContainer.Panel1.Controls.Add(this.bOpenGraphView);
             this.MainPannelSplitContainer.Panel1MinSize = 200;
             // 
             // MainPannelSplitContainer.Panel2
             // 
             this.MainPannelSplitContainer.Panel2.BackColor = System.Drawing.SystemColors.GrayText;
-            this.MainPannelSplitContainer.Panel2.Controls.Add(this.ValueScientifficBox);
-            this.MainPannelSplitContainer.Panel2.Controls.Add(this.lValueScientiffic);
-            this.MainPannelSplitContainer.Panel2.Controls.Add(this.ValueBox);
-            this.MainPannelSplitContainer.Panel2.Controls.Add(this.lValue);
-            this.MainPannelSplitContainer.Panel2.Controls.Add(this.NameProperty);
-            this.MainPannelSplitContainer.Panel2.Controls.Add(this.lNameProperty);
+            this.MainPannelSplitContainer.Panel2.Controls.Add(this.bSaveConfig);
+            this.MainPannelSplitContainer.Panel2.Controls.Add(this.partPropertyControl);
+            this.MainPannelSplitContainer.Panel2.Controls.Add(this.ampPropertyControl);
             this.MainPannelSplitContainer.Panel2.Controls.Add(this.lProperties);
             this.MainPannelSplitContainer.Panel2MinSize = 200;
             this.MainPannelSplitContainer.Size = new System.Drawing.Size(800, 425);
@@ -84,101 +82,60 @@
             this.MainPannelSplitContainer.TabIndex = 0;
             this.MainPannelSplitContainer.TabStop = false;
             // 
-            // ValueScientifficBox
+            // bOpenGraphView
             // 
-            this.ValueScientifficBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.ValueScientifficBox.Font = new System.Drawing.Font("Open Sans Light", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.ValueScientifficBox.Increment = new decimal(new int[] {
-            3,
-            0,
-            0,
-            0});
-            this.ValueScientifficBox.Location = new System.Drawing.Point(150, 96);
-            this.ValueScientifficBox.Maximum = new decimal(new int[] {
-            18,
-            0,
-            0,
-            0});
-            this.ValueScientifficBox.Minimum = new decimal(new int[] {
-            18,
-            0,
-            0,
-            -2147483648});
-            this.ValueScientifficBox.Name = "ValueScientifficBox";
-            this.ValueScientifficBox.Size = new System.Drawing.Size(48, 24);
-            this.ValueScientifficBox.TabIndex = 7;
-            this.ValueScientifficBox.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            262144});
-            // 
-            // lValueScientiffic
-            // 
-            this.lValueScientiffic.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.lValueScientiffic.AutoSize = true;
-            this.lValueScientiffic.Font = new System.Drawing.Font("Open Sans Light", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.lValueScientiffic.Location = new System.Drawing.Point(130, 96);
-            this.lValueScientiffic.Name = "lValueScientiffic";
-            this.lValueScientiffic.Size = new System.Drawing.Size(19, 23);
-            this.lValueScientiffic.TabIndex = 6;
-            this.lValueScientiffic.Text = "e";
-            // 
-            // ValueBox
-            // 
-            this.ValueBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.bOpenGraphView.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.ValueBox.Font = new System.Drawing.Font("Open Sans Light", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.ValueBox.Location = new System.Drawing.Point(13, 96);
-            this.ValueBox.Maximum = new decimal(new int[] {
-            9999999,
-            0,
-            0,
-            262144});
-            this.ValueBox.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.ValueBox.Name = "ValueBox";
-            this.ValueBox.Size = new System.Drawing.Size(115, 24);
-            this.ValueBox.TabIndex = 5;
-            this.ValueBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.ValueBox.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
+            this.bOpenGraphView.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.bOpenGraphView.FlatAppearance.BorderSize = 0;
+            this.bOpenGraphView.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.bOpenGraphView.Font = new System.Drawing.Font("Open Sans", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.bOpenGraphView.ForeColor = System.Drawing.Color.DodgerBlue;
+            this.bOpenGraphView.Location = new System.Drawing.Point(0, 374);
+            this.bOpenGraphView.Name = "bOpenGraphView";
+            this.bOpenGraphView.Size = new System.Drawing.Size(586, 50);
+            this.bOpenGraphView.TabIndex = 0;
+            this.bOpenGraphView.TabStop = false;
+            this.bOpenGraphView.Text = "Open Bode Plot Window";
+            this.bOpenGraphView.UseVisualStyleBackColor = false;
             // 
-            // lValue
+            // bSaveConfig
             // 
-            this.lValue.AutoSize = true;
-            this.lValue.Font = new System.Drawing.Font("Open Sans Light", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.lValue.Location = new System.Drawing.Point(13, 76);
-            this.lValue.Name = "lValue";
-            this.lValue.Size = new System.Drawing.Size(38, 17);
-            this.lValue.TabIndex = 3;
-            this.lValue.Text = "Value";
-            // 
-            // NameProperty
-            // 
-            this.NameProperty.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.bSaveConfig.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.NameProperty.Font = new System.Drawing.Font("Open Sans Light", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.NameProperty.Location = new System.Drawing.Point(13, 49);
-            this.NameProperty.Name = "NameProperty";
-            this.NameProperty.Size = new System.Drawing.Size(185, 24);
-            this.NameProperty.TabIndex = 2;
+            this.bSaveConfig.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.bSaveConfig.FlatAppearance.BorderSize = 0;
+            this.bSaveConfig.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.bSaveConfig.Font = new System.Drawing.Font("Open Sans", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.bSaveConfig.ForeColor = System.Drawing.Color.DodgerBlue;
+            this.bSaveConfig.Location = new System.Drawing.Point(0, 374);
+            this.bSaveConfig.Name = "bSaveConfig";
+            this.bSaveConfig.Size = new System.Drawing.Size(210, 50);
+            this.bSaveConfig.TabIndex = 2;
+            this.bSaveConfig.TabStop = false;
+            this.bSaveConfig.Text = "Save";
+            this.bSaveConfig.UseVisualStyleBackColor = false;
+            this.bSaveConfig.Click += new System.EventHandler(this.bSaveConfig_Click);
             // 
-            // lNameProperty
+            // partPropertyControl
             // 
-            this.lNameProperty.AutoSize = true;
-            this.lNameProperty.Font = new System.Drawing.Font("Open Sans Light", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.lNameProperty.Location = new System.Drawing.Point(13, 29);
-            this.lNameProperty.Name = "lNameProperty";
-            this.lNameProperty.Size = new System.Drawing.Size(41, 17);
-            this.lNameProperty.TabIndex = 1;
-            this.lNameProperty.Text = "Name";
+            this.partPropertyControl.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.partPropertyControl.Location = new System.Drawing.Point(0, 26);
+            this.partPropertyControl.Name = "partPropertyControl";
+            this.partPropertyControl.Size = new System.Drawing.Size(210, 348);
+            this.partPropertyControl.TabIndex = 2;
+            // 
+            // ampPropertyControl
+            // 
+            this.ampPropertyControl.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.ampPropertyControl.Location = new System.Drawing.Point(0, 26);
+            this.ampPropertyControl.Name = "ampPropertyControl";
+            this.ampPropertyControl.Size = new System.Drawing.Size(210, 348);
+            this.ampPropertyControl.TabIndex = 1;
             // 
             // lProperties
             // 
@@ -207,6 +164,7 @@
             this.bClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.bClose.BackgroundImage = global::ActiveFilterSimulator.Properties.Resources.CloseIcon_Red;
             this.bClose.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.bClose.FlatAppearance.BorderSize = 0;
             this.bClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.bClose.ForeColor = System.Drawing.Color.Red;
             this.bClose.Location = new System.Drawing.Point(774, 0);
@@ -223,6 +181,7 @@
             this.bMinimize.BackColor = System.Drawing.SystemColors.ControlDark;
             this.bMinimize.BackgroundImage = global::ActiveFilterSimulator.Properties.Resources.MinimizeIcon_2;
             this.bMinimize.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.bMinimize.FlatAppearance.BorderSize = 0;
             this.bMinimize.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.bMinimize.ForeColor = System.Drawing.SystemColors.ControlDark;
             this.bMinimize.Location = new System.Drawing.Point(720, 0);
@@ -239,6 +198,7 @@
             this.bMaximize.BackColor = System.Drawing.SystemColors.ControlDark;
             this.bMaximize.BackgroundImage = global::ActiveFilterSimulator.Properties.Resources.MaximizeIcon_2;
             this.bMaximize.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.bMaximize.FlatAppearance.BorderSize = 0;
             this.bMaximize.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.bMaximize.ForeColor = System.Drawing.SystemColors.ControlDark;
             this.bMaximize.Location = new System.Drawing.Point(747, 0);
@@ -264,12 +224,10 @@
             this.Name = "Form1";
             this.Text = "Form1";
             this.MainPannel.ResumeLayout(false);
+            this.MainPannelSplitContainer.Panel1.ResumeLayout(false);
             this.MainPannelSplitContainer.Panel2.ResumeLayout(false);
-            this.MainPannelSplitContainer.Panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.MainPannelSplitContainer)).EndInit();
             this.MainPannelSplitContainer.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.ValueScientifficBox)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.ValueBox)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -283,11 +241,9 @@
         private Button bMaximize;
         private SplitContainer MainPannelSplitContainer;
         private Label lProperties;
-        private Label lNameProperty;
-        private TextBox NameProperty;
-        private Label lValueScientiffic;
-        private NumericUpDown ValueBox;
-        private Label lValue;
-        private NumericUpDown ValueScientifficBox;
+        private AmpPropertiesUC ampPropertyControl;
+        private PartPropertiesUC partPropertyControl;
+        private Button bSaveConfig;
+        private Button bOpenGraphView;
     }
 }

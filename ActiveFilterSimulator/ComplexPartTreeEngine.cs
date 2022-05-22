@@ -72,6 +72,11 @@ namespace ActiveFilterSimulator
             netPartList.Add(zNetPart);
         }
 
+        public void RemovePartFromNet(string PartName)
+        {
+            netPartList.RemoveAt(indexOf(PartName));
+        }
+
         public int indexOf(string PartName)
         {
             for (int i = 0; i < netPartList.Count; i++)
@@ -119,10 +124,10 @@ namespace ActiveFilterSimulator
         {
             List<EngineNetPart> IterationList = new List<EngineNetPart>();
 
-            for(int i = 0; i < netPartList.Count; i++)
+            foreach (ComplexNetPart netPart in netPartList)
             {
-                netPartList[i].zPart.frequency = frequency;
-                IterationList.Add(new EngineNetPart(netPartList[i]));
+                netPart.zPart.frequency = frequency;
+                IterationList.Add(new EngineNetPart(netPart));
             }
 
             //Tree Iterations
