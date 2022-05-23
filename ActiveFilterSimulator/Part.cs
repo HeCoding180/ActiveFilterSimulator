@@ -16,6 +16,36 @@ namespace Part
         }
     }
 
+    public class ScientifficValue
+    {
+        public double BareValue { set; get; }
+        public int ValueScientiffic { set; get; }
+
+        public ScientifficValue(double value, int Scientiffic)
+        {
+            BareValue = value;
+            ValueScientiffic = Scientiffic;
+        }
+
+        public static ScientifficValue ParseValueToScientifficValue(double Value)
+        {
+            if (Value == 0.0f)
+            {
+                return new ScientifficValue(0, 0);
+            }
+            else
+            {
+                int scientiffic = ((int)Math.Log10(Value)) - (((int)Math.Log10(Value)) % 3);
+                double bareVal = Value / Math.Pow(10, scientiffic);
+                return new ScientifficValue(bareVal, scientiffic);
+            }
+        }
+        public double constructValue()
+        {
+            return BareValue * Math.Pow(10, ValueScientiffic);
+        }
+    }
+
     public class complexNumber
     {
         private double _R { set; get; }

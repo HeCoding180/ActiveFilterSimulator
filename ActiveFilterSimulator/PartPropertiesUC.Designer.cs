@@ -34,6 +34,8 @@
             this.lValue = new System.Windows.Forms.Label();
             this.NameProperty = new System.Windows.Forms.TextBox();
             this.lNameProperty = new System.Windows.Forms.Label();
+            this.PartTypeCombobox = new System.Windows.Forms.ComboBox();
+            this.lPartType = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.ValueScientifficBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ValueBox)).BeginInit();
             this.SuspendLayout();
@@ -61,7 +63,7 @@
             this.ValueScientifficBox.Name = "ValueScientifficBox";
             this.ValueScientifficBox.ReadOnly = true;
             this.ValueScientifficBox.Size = new System.Drawing.Size(48, 24);
-            this.ValueScientifficBox.TabIndex = 13;
+            this.ValueScientifficBox.TabIndex = 3;
             this.ValueScientifficBox.Value = new decimal(new int[] {
             1,
             0,
@@ -86,10 +88,10 @@
             this.ValueBox.Font = new System.Drawing.Font("Open Sans Light", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.ValueBox.Location = new System.Drawing.Point(12, 73);
             this.ValueBox.Maximum = new decimal(new int[] {
-            9999999,
+            999,
             0,
             0,
-            262144});
+            0});
             this.ValueBox.Minimum = new decimal(new int[] {
             1,
             0,
@@ -97,7 +99,7 @@
             0});
             this.ValueBox.Name = "ValueBox";
             this.ValueBox.Size = new System.Drawing.Size(115, 24);
-            this.ValueBox.TabIndex = 11;
+            this.ValueBox.TabIndex = 2;
             this.ValueBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.ValueBox.Value = new decimal(new int[] {
             1,
@@ -123,7 +125,7 @@
             this.NameProperty.Location = new System.Drawing.Point(12, 26);
             this.NameProperty.Name = "NameProperty";
             this.NameProperty.Size = new System.Drawing.Size(185, 24);
-            this.NameProperty.TabIndex = 9;
+            this.NameProperty.TabIndex = 1;
             // 
             // lNameProperty
             // 
@@ -135,10 +137,39 @@
             this.lNameProperty.TabIndex = 8;
             this.lNameProperty.Text = "Name";
             // 
+            // PartTypeCombobox
+            // 
+            this.PartTypeCombobox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.PartTypeCombobox.FormattingEnabled = true;
+            this.PartTypeCombobox.Items.AddRange(new object[] {
+            "Open",
+            "Connection",
+            "Resistor",
+            "Capacitor",
+            "Inductor"});
+            this.PartTypeCombobox.Location = new System.Drawing.Point(12, 120);
+            this.PartTypeCombobox.Name = "PartTypeCombobox";
+            this.PartTypeCombobox.Size = new System.Drawing.Size(185, 23);
+            this.PartTypeCombobox.TabIndex = 4;
+            this.PartTypeCombobox.Text = "Open";
+            // 
+            // lPartType
+            // 
+            this.lPartType.AutoSize = true;
+            this.lPartType.Font = new System.Drawing.Font("Open Sans Light", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.lPartType.Location = new System.Drawing.Point(12, 100);
+            this.lPartType.Name = "lPartType";
+            this.lPartType.Size = new System.Drawing.Size(59, 17);
+            this.lPartType.TabIndex = 15;
+            this.lPartType.Text = "Part Type";
+            // 
             // PartPropertiesUC
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.lPartType);
+            this.Controls.Add(this.PartTypeCombobox);
             this.Controls.Add(this.ValueScientifficBox);
             this.Controls.Add(this.lValueScientiffic);
             this.Controls.Add(this.ValueBox);
@@ -162,5 +193,7 @@
         private Label lValue;
         private TextBox NameProperty;
         private Label lNameProperty;
+        private ComboBox PartTypeCombobox;
+        private Label lPartType;
     }
 }
