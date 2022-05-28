@@ -39,3 +39,4 @@ C:\Users\timow\source\repos\ActiveFilterSimulator\ActiveFilterSimulator\obj\Debu
 C:\Users\plasm\source\repos\ActiveFilterSimulator\ActiveFilterSimulator\obj\Debug\net6.0-windows\ActiveFilterSimulator.AmpPropertiesUC.resources
 C:\Users\plasm\source\repos\ActiveFilterSimulator\ActiveFilterSimulator\obj\Debug\net6.0-windows\ActiveFilterSimulator.PartPropertiesUC.resources
 C:\Users\plasm\source\repos\ActiveFilterSimulator\ActiveFilterSimulator\obj\Debug\net6.0-windows\ActiveFilterSimulator.PartUC.resources
+C:\Users\timow\source\repos\ActiveFilterSimulator\ActiveFilterSimulator\obj\Debug\net6.0-windows\ActiveFilterSimulator.PartUC.resources

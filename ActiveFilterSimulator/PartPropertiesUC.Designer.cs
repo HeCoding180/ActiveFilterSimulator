@@ -85,6 +85,7 @@
             // 
             this.ValueBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.ValueBox.DecimalPlaces = 3;
             this.ValueBox.Font = new System.Drawing.Font("Open Sans Light", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.ValueBox.Location = new System.Drawing.Point(12, 73);
             this.ValueBox.Maximum = new decimal(new int[] {
@@ -96,7 +97,7 @@
             1,
             0,
             0,
-            0});
+            196608});
             this.ValueBox.Name = "ValueBox";
             this.ValueBox.Size = new System.Drawing.Size(115, 24);
             this.ValueBox.TabIndex = 2;

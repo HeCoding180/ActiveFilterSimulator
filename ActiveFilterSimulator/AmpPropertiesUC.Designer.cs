@@ -86,6 +86,7 @@
             // 
             this.GBPvalue.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.GBPvalue.DecimalPlaces = 3;
             this.GBPvalue.Font = new System.Drawing.Font("Open Sans Light", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.GBPvalue.Location = new System.Drawing.Point(12, 26);
             this.GBPvalue.Maximum = new decimal(new int[] {

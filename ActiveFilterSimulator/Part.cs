@@ -23,7 +23,7 @@ namespace Part
 
         public ScientifficValue(double value, int Scientiffic)
         {
-            BareValue = value;
+            BareValue = Math.Round(value, 3); //Round the value to an arbitary amount of digits to prevent data storage inaccuracy error (x.999999... and x.000000...1)
             ValueScientiffic = Scientiffic;
         }
 
