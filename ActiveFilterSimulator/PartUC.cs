@@ -11,9 +11,11 @@ using Part;
 
 namespace ActiveFilterSimulator
 {
+    public delegate void PartUCEventHandler(PartUC sender);
+
     public partial class PartUC : UserControl
     {
-        public event EventHandler PartClicked;
+        public event PartUCEventHandler PartClicked;
 
         private string _partName { set; get; }
         public string PartName
@@ -21,7 +23,10 @@ namespace ActiveFilterSimulator
             set
             {
                 _partName = value;
-                lName.Text = _partName;
+                if ((_partType == "Open") || (_partType == "Connection"))
+                    lName.Text = "";
+                else
+                    lName.Text = _partName;
             }
             get
             {
@@ -37,7 +42,6 @@ namespace ActiveFilterSimulator
                 _partValue = value;
                 ScientifficValue scientifficValue = ScientifficValue.ParseValueToScientifficValue(value);
 
-                PartType = PartType;
                 if ((PartType == "Open") || (PartType == "Connection"))
                     lValue.Text = "";
                 else
@@ -76,11 +80,8 @@ namespace ActiveFilterSimulator
                         break;
                 }
 
-                ScientifficValue scientifficValue = ScientifficValue.ParseValueToScientifficValue(_partValue);
-                if ((PartType == "Open") || (PartType == "Connection"))
-                    lValue.Text = "";
-                else
-                    lValue.Text = scientifficValue.BareValue.ToString() + GetExtension(_partType, scientifficValue.ValueScientiffic);
+                PartName = _partName;
+                PartValue = _partValue;
             }
             get
             {
@@ -99,8 +100,8 @@ namespace ActiveFilterSimulator
 
         private void InvokeClickedEvent(object sender, EventArgs e)
         {
-            EventHandler handler = PartClicked;
-            handler?.Invoke(this, EventArgs.Empty);
+            PartUCEventHandler handler = PartClicked;
+            handler?.Invoke(this);
         }
 
         private string getPrivateImageFolder()
@@ -114,7 +115,7 @@ namespace ActiveFilterSimulator
         {
             string scientifficCharacter;
 
-            switch(scientiffic)
+            switch (scientiffic)
             {
                 case 18:
                     scientifficCharacter = "E"; //Exa

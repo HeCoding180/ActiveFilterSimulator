@@ -8,11 +8,11 @@ namespace Part
 {
     public delegate complexNumber getComplexPropertyMethod(double partValue, double frequency);
 
-    public class InvalidOperationException: Exception
+    public class InvalidOperationException : Exception
     {
         public InvalidOperationException(string msg) : base(msg)
         {
-            
+
         }
     }
 
@@ -121,7 +121,7 @@ namespace Part
         {
             return new complexNumber(Math.Abs(z) * Math.Cos(theta), Math.Abs(z) * Math.Sin(theta));
         }
-        
+
         public static double pythagoricTheorem(double a, double b)
         {
             return Math.Sqrt(Math.Pow(a, 2) + Math.Pow(b, 2));

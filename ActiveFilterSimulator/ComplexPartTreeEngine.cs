@@ -7,7 +7,7 @@ using Part;
 
 namespace ActiveFilterSimulator
 {
-    public class ComplexNetPart
+    public class ComplexNetPart //NetPart used for user interface
     {
         public ComplexPart zPart;
 
@@ -27,7 +27,7 @@ namespace ActiveFilterSimulator
         }
     }
 
-    public class EngineNetPart
+    public class EngineNetPart  //NetPart used for calculations
     {
         public complexNumber zValue;
 
@@ -127,7 +127,8 @@ namespace ActiveFilterSimulator
             foreach (ComplexNetPart netPart in netPartList)
             {
                 netPart.zPart.frequency = frequency;
-                IterationList.Add(new EngineNetPart(netPart));
+                if (netPart.netA != netPart.netB)    //Ignore Shorted Parts
+                    IterationList.Add(new EngineNetPart(netPart));
             }
 
             //Tree Iterations

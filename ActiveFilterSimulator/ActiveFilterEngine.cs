@@ -28,8 +28,8 @@ namespace ActiveFilterSimulator
 
     public class ActiveFilterEngine
     {
-        ComplexPartTreeEngine ZaTreeEngine;
-        ComplexPartTreeEngine ZbTreeEngine;
+        public ComplexPartTreeEngine ZaTreeEngine;
+        public ComplexPartTreeEngine ZbTreeEngine;
 
         public ActiveFilterEngine()
         {

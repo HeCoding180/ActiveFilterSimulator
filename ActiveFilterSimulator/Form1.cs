@@ -18,11 +18,14 @@ namespace ActiveFilterSimulator
         readonly Color BACKCOLOR_DARK = Color.FromArgb(39, 42, 56);
         readonly Color FORECOLOR_DEFAULT = Color.FromArgb(36, 101, 255);
 
-        Pen netPen = new Pen(Color.Black, 2);
+        //Pen netPen = new Pen(Color.Black, 2);
 
         PartUC PartPropertySelectReference;
 
         PropertySelect currentProperty;
+
+        List<PartUC> PartUCrefList;
+        ComplexPartTreeEngine partTreeEngine;
 
         public Form1()
         {
@@ -72,139 +75,57 @@ namespace ActiveFilterSimulator
 
             File.WriteAllText(@"C:\Users\timow\Desktop\TestGraph.csv", csvString);*/
 
-            //Part UserControl
-            PartZ1A1.PartClicked += PartZ1A1_PartClicked;
-            PartZ1A2.PartClicked += PartZ1A2_PartClicked;
-            PartZ1A3.PartClicked += PartZ1A3_PartClicked;
-            PartZ1B1.PartClicked += PartZ1B1_PartClicked;
-            PartZ1B2.PartClicked += PartZ1B2_PartClicked;
-            PartZ1B3.PartClicked += PartZ1B3_PartClicked;
+            //Part UserControls
+            //PartUC list for naming rule checking and more
+            PartUCrefList = new List<PartUC>();
+            PartUCrefList.Add(PartZ1A1);
+            PartUCrefList.Add(PartZ1A2);
+            PartUCrefList.Add(PartZ1A3);
+            PartUCrefList.Add(PartZ1B1);
+            PartUCrefList.Add(PartZ1B2);
+            PartUCrefList.Add(PartZ1B3);
 
-            PartZ2A1.PartClicked += PartZ2A1_PartClicked;
-            PartZ2A2.PartClicked += PartZ2A2_PartClicked;
-            PartZ2A3.PartClicked += PartZ2A3_PartClicked;
-            PartZ2B1.PartClicked += PartZ2B1_PartClicked;
-            PartZ2B2.PartClicked += PartZ2B2_PartClicked;
-            PartZ2B3.PartClicked += PartZ2B3_PartClicked;
+            PartUCrefList.Add(PartZ2A1);
+            PartUCrefList.Add(PartZ2A2);
+            PartUCrefList.Add(PartZ2A3);
+            PartUCrefList.Add(PartZ2B1);
+            PartUCrefList.Add(PartZ2B2);
+            PartUCrefList.Add(PartZ2B3);
 
-            PartZ1A1.BackColor = BACKCOLOR_PART;
-            PartZ1A2.BackColor = BACKCOLOR_PART;
-            PartZ1A3.BackColor = BACKCOLOR_PART;
-            PartZ1B1.BackColor = BACKCOLOR_PART;
-            PartZ1B2.BackColor = BACKCOLOR_PART;
-            PartZ1B3.BackColor = BACKCOLOR_PART;
+            foreach (PartUC PartUCref in PartUCrefList)
+            {
+                PartUCref.PartClicked += PartClickedEvent;
+                PartUCref.BackColor = BACKCOLOR_PART;
+                //Set the default part names
+                PartUCref.PartName = PartUCref.Name.Replace("Part", "");
+            }
 
-            PartZ2A1.BackColor = BACKCOLOR_PART;
-            PartZ2A2.BackColor = BACKCOLOR_PART;
-            PartZ2A3.BackColor = BACKCOLOR_PART;
-            PartZ2B1.BackColor = BACKCOLOR_PART;
-            PartZ2B2.BackColor = BACKCOLOR_PART;
-            PartZ2B3.BackColor = BACKCOLOR_PART;
-        }
-
-        private void PartZ2B3_PartClicked(object? sender, EventArgs e)
-        {
-            SelectPropertyType(PropertySelect.PartProperties);
-            if (PartPropertySelectReference != null) PartPropertySelectReference.BackColor = BACKCOLOR_PART;
-            PartPropertySelectReference = PartZ2B3;
+            SelectPropertyType(PropertySelect.AmpProperties);
             loadProperties();
+
+            //ComplexPartTreeEngine initialization
+            partTreeEngine = new ComplexPartTreeEngine();
         }
 
-        private void PartZ2B2_PartClicked(object? sender, EventArgs e)
+        private void PartClickedEvent(PartUC sender)
         {
             SelectPropertyType(PropertySelect.PartProperties);
             if (PartPropertySelectReference != null) PartPropertySelectReference.BackColor = BACKCOLOR_PART;
-            PartPropertySelectReference = PartZ2B2;
-            loadProperties();
-        }
-
-        private void PartZ2B1_PartClicked(object? sender, EventArgs e)
-        {
-            SelectPropertyType(PropertySelect.PartProperties);
-            if (PartPropertySelectReference != null) PartPropertySelectReference.BackColor = BACKCOLOR_PART;
-            PartPropertySelectReference = PartZ2B1;
-            loadProperties();
-        }
-
-        private void PartZ2A3_PartClicked(object? sender, EventArgs e)
-        {
-            SelectPropertyType(PropertySelect.PartProperties);
-            if (PartPropertySelectReference != null) PartPropertySelectReference.BackColor = BACKCOLOR_PART;
-            PartPropertySelectReference = PartZ2A3;
-            loadProperties();
-        }
-
-        private void PartZ2A2_PartClicked(object? sender, EventArgs e)
-        {
-            SelectPropertyType(PropertySelect.PartProperties);
-            if (PartPropertySelectReference != null) PartPropertySelectReference.BackColor = BACKCOLOR_PART;
-            PartPropertySelectReference = PartZ2A2;
-            loadProperties();
-        }
-
-        private void PartZ2A1_PartClicked(object? sender, EventArgs e)
-        {
-            SelectPropertyType(PropertySelect.PartProperties);
-            if (PartPropertySelectReference != null) PartPropertySelectReference.BackColor = BACKCOLOR_PART;
-            PartPropertySelectReference = PartZ2A1;
-            loadProperties();
-        }
-
-        private void PartZ1B3_PartClicked(object? sender, EventArgs e)
-        {
-            SelectPropertyType(PropertySelect.PartProperties);
-            if (PartPropertySelectReference != null) PartPropertySelectReference.BackColor = BACKCOLOR_PART;
-            PartPropertySelectReference = PartZ1B3;
-            loadProperties();
-        }
-
-        private void PartZ1B2_PartClicked(object? sender, EventArgs e)
-        {
-            SelectPropertyType(PropertySelect.PartProperties);
-            if (PartPropertySelectReference != null) PartPropertySelectReference.BackColor = BACKCOLOR_PART;
-            PartPropertySelectReference = PartZ1B2;
-            loadProperties();
-        }
-
-        private void PartZ1B1_PartClicked(object? sender, EventArgs e)
-        {
-            SelectPropertyType(PropertySelect.PartProperties);
-            if (PartPropertySelectReference != null) PartPropertySelectReference.BackColor = BACKCOLOR_PART;
-            PartPropertySelectReference = PartZ1B1;
-            loadProperties();
-        }
-
-        private void PartZ1A3_PartClicked(object? sender, EventArgs e)
-        {
-            SelectPropertyType(PropertySelect.PartProperties);
-            if (PartPropertySelectReference != null) PartPropertySelectReference.BackColor = BACKCOLOR_PART;
-            PartPropertySelectReference = PartZ1A3;
-            loadProperties();
-        }
-
-        private void PartZ1A2_PartClicked(object? sender, EventArgs e)
-        {
-            SelectPropertyType(PropertySelect.PartProperties);
-            if (PartPropertySelectReference != null) PartPropertySelectReference.BackColor = BACKCOLOR_PART;
-            PartPropertySelectReference = PartZ1A2;
-            loadProperties();
-        }
-
-        private void PartZ1A1_PartClicked(object? sender, EventArgs e)
-        {
-            SelectPropertyType(PropertySelect.PartProperties);
-            if (PartPropertySelectReference != null) PartPropertySelectReference.BackColor = BACKCOLOR_PART;
-            PartPropertySelectReference = PartZ1A1;
+            if (sender != null)
+            {
+                PartPropertySelectReference = sender;
+                PartPropertySelectReference.BackColor = BACKCOLOR_PART_SELECTED;
+            }
             loadProperties();
         }
 
         private void MainPannelSplitContainer_Panel1_Click(object sender, EventArgs e)
         {
             SelectPropertyType(PropertySelect.AmpProperties);
-            PartPropertySelectReference = PartZ2B3;
+            if (PartPropertySelectReference != null) PartPropertySelectReference.BackColor = BACKCOLOR_PART;
         }
 
-        //Makes the window movable, even tho that it has no titlebar, was copied from GitHub (https://stackoverflow.com/a/28437841)
+        //Makes the window movable, even though the form is borderless (was copied from GitHub: https://stackoverflow.com/a/28437841)
         protected override void WndProc(ref Message m)
         {
             switch (m.Msg)
@@ -220,6 +141,7 @@ namespace ActiveFilterSimulator
 
         public void SelectPropertyType(PropertySelect type)
         {
+            currentProperty = type;
             if (type == PropertySelect.PartProperties)
             {
                 partPropertyControl.BringToFront();
@@ -235,12 +157,11 @@ namespace ActiveFilterSimulator
             switch (currentProperty)
             {
                 case PropertySelect.AmpProperties:
-                    PartPropertySelectReference.BackColor = BACKCOLOR_PART_SELECTED;
+                    break;
+                case PropertySelect.PartProperties:
                     partPropertyControl.PartName = PartPropertySelectReference.PartName;
                     partPropertyControl.PartValue = PartPropertySelectReference.PartValue;
                     partPropertyControl.PartType = PartPropertySelectReference.PartType;
-                    break;
-                case PropertySelect.PartProperties:
                     break;
             }
         }
@@ -249,11 +170,23 @@ namespace ActiveFilterSimulator
             switch (currentProperty)
             {
                 case PropertySelect.AmpProperties:
-                    PartPropertySelectReference.PartName = partPropertyControl.PartName;
-                    PartPropertySelectReference.PartValue = partPropertyControl.PartValue;
-                    PartPropertySelectReference.PartType = partPropertyControl.PartType;
                     break;
                 case PropertySelect.PartProperties:
+                    bool invalidName = false;
+                    foreach (PartUC PartUCref in PartUCrefList)
+                    {
+                        if ((PartUCref.PartName == partPropertyControl.PartName) && (PartUCrefList.IndexOf(PartUCref) != PartUCrefList.IndexOf(PartPropertySelectReference)))
+                            invalidName = true;
+                    }
+                    if (!invalidName)
+                        PartPropertySelectReference.PartName = partPropertyControl.PartName;
+                    else
+                    {
+                        MessageBox.Show("Another part with the name '" + partPropertyControl.PartName + "' already exists", "Invalid Name", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        partPropertyControl.PartName = PartPropertySelectReference.PartName;
+                    }
+                    PartPropertySelectReference.PartValue = partPropertyControl.PartValue;
+                    PartPropertySelectReference.PartType = partPropertyControl.PartType;
                     break;
             }
         }
@@ -288,6 +221,21 @@ namespace ActiveFilterSimulator
         private void bAmpConfig_Click(object sender, EventArgs e)
         {
             SelectPropertyType(PropertySelect.AmpProperties);
+        }
+
+        private void bZ1AB1Net_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void bZ1AB2Net_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void bZ2AB1Net_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
